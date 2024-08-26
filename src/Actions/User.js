@@ -1,5 +1,26 @@
 import axios from "axios";
+// const BASE_URL = "https://social-media-api-6l7u.vercel.app"
+// const BASE_URL = "https://social-media-api-6l7u-git-main-mrpavanchauhans-projects.vercel.app/"
+const BASE_URL = "https://social-media-api-mbi9.onrender.com"
+// const BASE_URL = "http://localhost:3000"
+const API = "/api/v1/"
+const API_DATA = {
+  LOGIN: "login",
+  LOAD_USERS: "me",
+  FOLLOWING_POST: "posts",
+  GET_MY_POST: "my/posts",
+  LOGOUT: "logout",
+  REGISTER: "register",
+  UPDATE_PROFILE: "update/profile",
+  UPDATE_PASSWORD: "update/password",
+  DELETE_PROFILE: "delete/me",
+  FORGOT_PASSWORD: "forgot/password",
+  RESET_PASSWORD: "password/reset/",
+  USER_POST: "userposts/",
+  GET_USER: "user/",
+  FOLLOW_UNFOLLOW: "follow/",
 
+}
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -7,14 +28,16 @@ export const loginUser = (email, password) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "/api/v1/login",
+      `${BASE_URL}${API}${API_DATA.LOGIN}`,
       { email, password },
+
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
+    console.log(data)
 
     dispatch({
       type: "LoginSuccess",
@@ -34,7 +57,7 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
 
-    const { data } = await axios.get("/api/v1/me");
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.LOAD_USERS}`);
     console.log(data)
 
     dispatch({
@@ -55,7 +78,7 @@ export const getFollowingPosts = () => async (dispatch) => {
       type: "postOfFollowingRequest",
     });
 
-    const { data } = await axios.get("/api/v1/posts");
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.FOLLOWING_POST}`);
     dispatch({
       type: "postOfFollowingSuccess",
       payload: data.posts,
@@ -74,7 +97,7 @@ export const getMyPosts = () => async (dispatch) => {
       type: "myPostsRequest",
     });
 
-    const { data } = await axios.get("/api/v1/my/posts");
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.GET_MY_POST}`);
     dispatch({
       type: "myPostsSuccess",
       payload: data.posts,
@@ -95,7 +118,7 @@ export const getAllUsers =
           type: "allUsersRequest",
         });
 
-        const { data } = await axios.get(`/api/v1/users?name=${name}`);
+        const { data } = await axios.get(` ${BASE_URL}${API}/users?name=${name}`);
         dispatch({
           type: "allUsersSuccess",
           payload: data.users,
@@ -114,12 +137,13 @@ export const logoutUser = () => async (dispatch) => {
       type: "LogoutUserRequest",
     });
 
-    await axios.get("/api/v1/logout");
+    await axios.get(`${BASE_URL}${API}${API_DATA.LOGOUT}`,);
 
     dispatch({
       type: "LogoutUserSuccess",
     });
   } catch (error) {
+    console.log("==>logout", error)
     dispatch({
       type: "LogoutUserFailure",
       payload: error.response.data.message,
@@ -135,7 +159,7 @@ export const registerUser =
       });
 
       const { data } = await axios.post(
-        "/api/v1/register",
+        `${BASE_URL}${API}${API_DATA.REGISTER}`,
         { name, email, password, avatar },
         {
           headers: {
@@ -163,7 +187,8 @@ export const updateProfile = (name, email, avatar) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      "/api/v1/update/profile",
+      `${BASE_URL}${API}${API_DATA.UPDATE_PROFILE}`
+      ,
       { name, email, avatar },
       {
         headers: {
@@ -192,7 +217,7 @@ export const updatePassword =
       });
 
       const { data } = await axios.put(
-        "/api/v1/update/password",
+        `${BASE_URL}${API}${API_DATA.UPDATE_PASSWORD}`,
         { oldPassword, newPassword },
         {
           headers: {
@@ -219,7 +244,7 @@ export const deleteMyProfile = () => async (dispatch) => {
       type: "deleteProfileRequest",
     });
 
-    const { data } = await axios.delete("/api/v1/delete/me");
+    const { data } = await axios.delete(`${BASE_URL}${API}${API_DATA.DELETE_PROFILE}`);
 
     dispatch({
       type: "deleteProfileSuccess",
@@ -240,7 +265,8 @@ export const forgotPassword = (email) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "/api/v1/forgot/password",
+      `${BASE_URL}${API}${API_DATA.FORGOT_PASSWORD}`
+      ,
       {
         email,
       },
@@ -270,7 +296,7 @@ export const resetPassword = (token, password) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      `/api/v1/password/reset/${token}`,
+      `${BASE_URL}${API}${API_DATA.RESET_PASSWORD}${token}`,
       {
         password,
       },
@@ -299,7 +325,7 @@ export const getUserPosts = (id) => async (dispatch) => {
       type: "userPostsRequest",
     });
 
-    const { data } = await axios.get(`/api/v1/userposts/${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.USER_POST}${id}`);
     dispatch({
       type: "userPostsSuccess",
       payload: data.posts,
@@ -318,7 +344,7 @@ export const getUserProfile = (id) => async (dispatch) => {
       type: "userProfileRequest",
     });
 
-    const { data } = await axios.get(`/api/v1/user/${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.GET_USER}${id}`);
     dispatch({
       type: "userProfileSuccess",
       payload: data.user,
@@ -337,7 +363,7 @@ export const followAndUnfollowUser = (id) => async (dispatch) => {
       type: "followUserRequest",
     });
 
-    const { data } = await axios.get(`/api/v1/follow/${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.FOLLOW_UNFOLLOW}${id}`);
     dispatch({
       type: "followUserSuccess",
       payload: data.message,
