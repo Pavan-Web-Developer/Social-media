@@ -2,7 +2,7 @@ import axios from "axios";
 // const BASE_URL = "https://social-media-api-6l7u.vercel.app"
 // const BASE_URL = "https://social-media-api-6l7u-git-main-mrpavanchauhans-projects.vercel.app/"
 const BASE_URL = "https://social-media-api-mbi9.onrender.com"
-// const BASE_URL = "http://localhost:3000"
+// const BASE_URL = "http://localhost:4000"
 const API = "/api/v1/"
 const API_DATA = {
   LOGIN: "login",
@@ -143,7 +143,9 @@ export const logoutUser = () => async (dispatch) => {
       type: "LogoutUserRequest",
     });
 
-    await axios.get(`${BASE_URL}${API}${API_DATA.LOGOUT}`,);
+    await axios.get(`${BASE_URL}${API}${API_DATA.LOGOUT}`, {
+      withCredentials: true,
+    });
 
     dispatch({
       type: "LogoutUserSuccess",
