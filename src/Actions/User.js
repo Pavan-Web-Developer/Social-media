@@ -34,10 +34,10 @@ export const loginUser = (email, password) => async (dispatch) => {
       {
         headers: {
           "Content-Type": "application/json",
-        },
+        }, withCredentials: true,
       }
     );
-    console.log(data)
+    console.log("==>login data", data)
 
     dispatch({
       type: "LoginSuccess",
@@ -57,7 +57,9 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
 
-    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.LOAD_USERS}`);
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.LOAD_USERS}`, {
+      withCredentials: true,
+    });
     console.log(data)
 
     dispatch({
@@ -78,7 +80,9 @@ export const getFollowingPosts = () => async (dispatch) => {
       type: "postOfFollowingRequest",
     });
 
-    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.FOLLOWING_POST}`);
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.FOLLOWING_POST}`, {
+      withCredentials: true,
+    });
     dispatch({
       type: "postOfFollowingSuccess",
       payload: data.posts,
@@ -97,7 +101,9 @@ export const getMyPosts = () => async (dispatch) => {
       type: "myPostsRequest",
     });
 
-    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.GET_MY_POST}`);
+    const { data } = await axios.get(`${BASE_URL}${API}${API_DATA.GET_MY_POST}`, {
+      withCredentials: true,
+    });
     dispatch({
       type: "myPostsSuccess",
       payload: data.posts,
