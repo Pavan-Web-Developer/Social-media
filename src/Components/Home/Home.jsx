@@ -11,7 +11,7 @@ import { useAlert } from "react-alert";
 const Home = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
-
+  const { user, loading: userLoading } = useSelector((state) => state.user);
   const { loading, posts, error } = useSelector(
     (state) => state.postOfFollowing
   );
@@ -19,6 +19,13 @@ const Home = () => {
   const { users, loading: usersLoading } = useSelector(
     (state) => state.allUsers
   );
+
+  const suggestedUsers= users && users.filter((d,_)=>  d._id!==user._id)
+  //removing users thata are already followed
+  const newsuggestedUsers = suggestedUsers && suggestedUsers.filter((d) => 
+  !user.following.some((dd) => d._id === dd._id)
+);
+    
 
   const { error: likeError, message } = useSelector((state) => state.like);
 
@@ -67,8 +74,10 @@ const Home = () => {
         )}
       </div>
       <div className="homeright">
-        {users && users.length > 0 ? (
-          users.map((user) => (
+        suggested for you
+       
+        {newsuggestedUsers && newsuggestedUsers.length > 0 ? (
+          newsuggestedUsers.map((user) => (
             <User
               key={user._id}
               userId={user._id}

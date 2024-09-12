@@ -124,7 +124,7 @@ export const getAllUsers =
           type: "allUsersRequest",
         });
 
-        const { data } = await axios.get(` ${BASE_URL}${API}/users?name=${name}`);
+        const { data } = await axios.get(` ${BASE_URL}${API}/users?name=${name}`, { withCredentials: true });
         dispatch({
           type: "allUsersSuccess",
           payload: data.users,
