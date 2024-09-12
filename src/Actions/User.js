@@ -124,7 +124,9 @@ export const getAllUsers =
           type: "allUsersRequest",
         });
 
-        const { data } = await axios.get(` ${BASE_URL}${API}/users?name=${name}`, { withCredentials: true });
+        const { data } = await axios.get(` ${BASE_URL}${API}/users?name=${name}`, {
+          withCredentials: true
+        });
         dispatch({
           type: "allUsersSuccess",
           payload: data.users,
@@ -172,7 +174,7 @@ export const registerUser =
         {
           headers: {
             "Content-Type": "application/json",
-          },
+          }, withCredentials: true
         }
       );
 
@@ -281,7 +283,7 @@ export const forgotPassword = (email) => async (dispatch) => {
       {
         headers: {
           "Content-Type": "application/json",
-        },
+        }, withCredentials: true
       }
     );
 
@@ -311,7 +313,7 @@ export const resetPassword = (token, password) => async (dispatch) => {
       {
         headers: {
           "Content-Type": "application/json",
-        },
+        }, withCredentials: true
       }
     );
 
@@ -333,7 +335,9 @@ export const getUserPosts = (id) => async (dispatch) => {
       type: "userPostsRequest",
     });
 
-    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.USER_POST}${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.USER_POST}${id}`, {
+      withCredentials: true
+    });
     dispatch({
       type: "userPostsSuccess",
       payload: data.posts,
@@ -352,7 +356,9 @@ export const getUserProfile = (id) => async (dispatch) => {
       type: "userProfileRequest",
     });
 
-    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.GET_USER}${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.GET_USER}${id}`, {
+      withCredentials: true
+    });
     dispatch({
       type: "userProfileSuccess",
       payload: data.user,
@@ -371,7 +377,9 @@ export const followAndUnfollowUser = (id) => async (dispatch) => {
       type: "followUserRequest",
     });
 
-    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.FOLLOW_UNFOLLOW}${id}`);
+    const { data } = await axios.get(` ${BASE_URL}${API}${API_DATA.FOLLOW_UNFOLLOW}${id}`, {
+      withCredentials: true
+    });
     dispatch({
       type: "followUserSuccess",
       payload: data.message,
