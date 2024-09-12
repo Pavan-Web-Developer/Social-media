@@ -58,13 +58,13 @@ const Header = () => {
           <AccountCircleOutlined />
         )}
       </Link>
-      <Link to={`/report`}  onClick={() => setTab("/report")}>
+      {/* <Link to={`/report`}  onClick={() => setTab("/report")}>
         {tab === "/report" ? (
           <BookmarksRounded style={{ color: "black" }} />
         ) : (
           <BookmarksRounded />
         )}
-      </Link>
+      </Link> */}
     </div>
   );
 };

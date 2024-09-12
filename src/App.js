@@ -82,11 +82,11 @@ function App() {
           element={isAuthenticated ? <UserProfile /> : <Login />}
         />
         {/* <Route path="/report" element={isAuthenticated ? <Report /> : <Login />} /> */}
-        <Route path="/report" element={
+        {/* <Route path="/report" element={
           <ProtectedRoute>
             <Report />
           </ProtectedRoute>
-        } />
+        } /> */}
         <Route path="search" element={<Search />} />
 
         <Route path="*" element={<NotFound />} />
