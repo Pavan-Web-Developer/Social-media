@@ -30,8 +30,8 @@ function App() {
     dispatch(loadUser());
   }, [dispatch]);
 
-  const { isAuthenticated } = useSelector((state) => state.user);
-
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  console.log("==>User loged in ", user)
   return (<div className='content'>
     <Router>
       {isAuthenticated && <Header />}

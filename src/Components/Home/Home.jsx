@@ -47,6 +47,9 @@ const Home = () => {
     if (message) {
       alert.success(message);
       dispatch({ type: "clearMessage" });
+       // Refetch users and posts to ensure the updated list is reflected
+       dispatch(getFollowingPosts());
+       dispatch(getAllUsers());
     }
   }, [alert, error, message, likeError, dispatch]);
 
@@ -77,12 +80,13 @@ const Home = () => {
         suggested for you
        
         {newsuggestedUsers && newsuggestedUsers.length > 0 ? (
-          newsuggestedUsers.map((user) => (
+          newsuggestedUsers.map((d) => (
             <User
-              key={user._id}
-              userId={user._id}
-              name={user.name}
-              avatar={user.avatar.url ? user.avatar.url:""}
+              key={d._id}
+              userId={d._id}
+              name={d.name}
+              avatar={d.avatar.url ? d.avatar.url:""}
+              // user={user}
             />
           ))
         ) : (
