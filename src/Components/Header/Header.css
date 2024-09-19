@@ -5,12 +5,16 @@
 }
 
 .header > a {
-  width: 2vmax;
-  height: 2vmax;
+  width: 3vmax;
+  height: 3vmax;
   margin: 1vmax 4vmax;
 }
+.header  .MuiAvatar-root.MuiAvatar-circular.css-1wpddoq-MuiAvatar-root {
+  width: 3vmax;
+  height: 3vmax;
+}
 .header > a > svg {
-  font-size: 2vmax;
+  font-size: 3vmax;
   transition: all 0.5s;
   color: rgba(0, 0, 0, 0.445);
 }

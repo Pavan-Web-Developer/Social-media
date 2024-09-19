@@ -16,14 +16,18 @@ import {
   BookmarksRounded,
 } from "@mui/icons-material";
 import Notification from "../Notification/Notification";
+import { useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 
 const Header = () => {
   const userId=window.location.pathname.replace("/user/","")
+  const { user, loading: userLoading } = useSelector((state) => state.user);
 
+  console.log("==>",user.avatar.url)
   const [tab, setTab] = useState(window.location.pathname);
   return (
     <div className="header">
-      <Link to="/" onClick={() => setTab("/")}>
+      <Link to="/" className="header-icon" onClick={() => setTab("/")}>
         {tab === "/" ? <Home style={{ color: "black" }} /> : <HomeOutlined />}
       </Link>
 
@@ -51,9 +55,12 @@ const Header = () => {
         )}
       </Link>
 
-      <Link to="/account" onClick={() => setTab("/account")}>
+      <Link to="/account" className="header-icon" onClick={() => setTab("/account")}>
         {tab === "/account" ? (
-          <AccountCircle style={{ color: "black" }} />
+          <Avatar
+          src={user.avatar.url}
+          sx={{ height: "8vmax", width: "8vmax" }}
+        />
         ) : (
           <AccountCircleOutlined />
         )}
